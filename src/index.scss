@@ -1,0 +1,17 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+body {
+  background-color: white;
+  margin: 0;
+  font-family: "Oswald", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+div.mapboxgl-popup-tip {
+  display: none;
+}
+div.mapboxgl-popup-content {
+  background: none;
+  height: 100%;
+}
