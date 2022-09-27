@@ -4,7 +4,6 @@
     "dev": "webpack serve --config webpack.config.ts --mode development",
     "build": "webpack --config webpack.config.ts --mode production",
     "start": "webpack serve --config webpack.config.ts --mode production",
-    "deploy:production": "npm run build && aws s3 sync dist/build/ s3://std-frontend-live --acl public-read && aws cloudfront create-invalidation --distribution-id E23XB4ABNQCDCV --paths '/*'",
     "start1": "node server.js"
   },
   "devDependencies": {
@@ -24,6 +23,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "alchemy-sdk": "^2.0.5-rc1",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "dotenv": "^16.0.1",

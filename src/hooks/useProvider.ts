@@ -4,7 +4,7 @@ import { WalletContext } from "./WalletProvider";
 
 export const useProvider = () => {
   const { useProviderState } = useContext(WalletContext);
-  const [provider] = useState(useProviderState);
+  const [provider] = useProviderState;
   if (provider) {
     return provider;
   }

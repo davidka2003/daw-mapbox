@@ -1,5 +1,6 @@
 import { Contract, ethers } from "ethers";
 import React, { createContext, useContext, useState, useEffect, Context, Dispatch, SetStateAction } from "react";
+import { login, logout, UserI } from "../utils/api";
 type UseStateT<T> = [T, Dispatch<SetStateAction<T>>];
 interface WalletContextI {
   useProviderState: UseStateT<ethers.providers.Web3Provider | null>;
@@ -8,6 +9,7 @@ interface WalletContextI {
   useConnectedState: UseStateT<boolean>;
   useAuthorizedState: UseStateT<boolean>;
   useAddressState: UseStateT<string | null>;
+  useUserState: UseStateT<UserI | null>;
 }
 export const WalletContext = createContext<WalletContextI>({
   //@ts-ignore
@@ -20,6 +22,8 @@ export const WalletContext = createContext<WalletContextI>({
   useConnectedState: undefined,
   //@ts-ignore
   useAuthorizedState: undefined,
+  //@ts-ignore
+  useUserState: undefined,
 });
 
 export const getProvider = (instance: any) => {
@@ -35,6 +39,7 @@ const WalletProvider = ({ children }: { children: JSX.Element }) => {
   const [connected, setConnected] = useState(false) as WalletContextI["useConnectedState"];
   const [authorized, setAuthorized] = useState(false) as WalletContextI["useAuthorizedState"];
   const [address, setAddress] = useState(null) as WalletContextI["useAddressState"];
+  const [user, setUser] = useState(null) as WalletContextI["useUserState"];
   // console.log(connected);
   useEffect(() => {
     const init = async () => {
@@ -47,6 +52,9 @@ const WalletProvider = ({ children }: { children: JSX.Element }) => {
           if (signer) {
             const address = await signer.getAddress();
             setAddress(address);
+            await logout();
+            const user = await login(signer);
+            setUser(user);
           }
         });
         provider.on("network", (newNetwork, oldNetwork) => {
@@ -67,6 +75,7 @@ const WalletProvider = ({ children }: { children: JSX.Element }) => {
         useAuthorizedState: [authorized, setAuthorized],
         useInstanceState: [instance, setInstance],
         useAddressState: [address, setAddress],
+        useUserState: [user, setUser],
       }}
     >
       {children}

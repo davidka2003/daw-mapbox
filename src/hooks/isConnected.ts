@@ -3,7 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { WalletContext } from "./WalletProvider";
 
 export const isConnected = () => {
-  const { useConnectedState } = useContext(WalletContext);
+  const { useConnectedState, useAuthorizedState } = useContext(WalletContext);
   const [connected] = useConnectedState;
-  return connected;
+  const [authorized] = useAuthorizedState;
+  return { connected, authorized };
 };
