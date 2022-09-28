@@ -91,29 +91,33 @@ const MapMarker = ({
         >
           <div className={styles.popup_Content}>
             <div className={styles.popup_Content_nfts}>
-              {[...nfts, ...nfts, ...nfts].slice(0, 9).map((nft) => (
-                <motion.div
-                  key={nft.title}
-                  onClick={() => openNftHandler(nft)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={styles.nft}
-                >
-                  <img src={nft.media[0].gateway} alt={nft.title} />
-                  <p>{nft.title}</p>
-                </motion.div>
-              ))}
-              {[...nfts, ...nfts, ...nfts].length > 9 && (
-                <motion.div
-                  onClick={() => viewAllHandler(nfts[0])}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={styles.nft_more}
-                >
-                  <img src={more} alt={"More"} />
-                  <p>View all</p>
-                </motion.div>
-              )}
+              {
+                /* [...nfts, ...nfts, ...nfts] */ nfts.slice(0, 9).map((nft) => (
+                  <motion.div
+                    key={nft.title}
+                    onClick={() => openNftHandler(nft)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={styles.nft}
+                  >
+                    <img src={nft.media[0].gateway} alt={nft.title} />
+                    <p>{nft.title}</p>
+                  </motion.div>
+                ))
+              }
+              {
+                /* [...nfts, ...nfts, ...nfts] */ nfts.length > 9 && (
+                  <motion.div
+                    onClick={() => viewAllHandler(nfts[0])}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={styles.nft_more}
+                  >
+                    <img src={more} alt={"More"} />
+                    <p>View all</p>
+                  </motion.div>
+                )
+              }
             </div>
             <div className={styles.popup_Content_user}>
               <p>{formatWalletAddress(wallet)}</p>
