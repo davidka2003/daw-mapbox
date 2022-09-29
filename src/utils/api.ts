@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import axios from "./axios";
 import { OwnedNft } from "alchemy-sdk";
 import { Signer } from "ethers";
@@ -38,9 +37,13 @@ export const GetUser = async (wallet: string): Promise<GetUserI> => {
 };
 export const updateLocation = async (location: LocationT) => {
   try {
-    const response = await axios.patch("users/location", {
-      ...location,
-    });
+    const response = await axios.patch(
+      "users/location",
+      {
+        ...location,
+      },
+      { withCredentials: true }
+    );
     return response.data as UserI;
   } catch (error) {
     return null;
@@ -51,13 +54,21 @@ export const login = async (signer: Signer): Promise<UserI | null> => {
   try {
     const {
       data: { nonce },
-    } = await axios.get<{ nonce: string }>("/auth/nonce");
+    } = await axios.get<{ nonce: string }>("/auth/nonce", {
+      withCredentials: true,
+    });
     const wallet = await signer.getAddress();
     const signature = await signer.signMessage(nonce);
-    const response = await axios.post<UserI>("/auth/authorize", {
-      wallet,
-      signature,
-    });
+    const response = await axios.post<UserI>(
+      "/auth/authorize",
+      {
+        wallet,
+        signature,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -66,7 +77,9 @@ export const login = async (signer: Signer): Promise<UserI | null> => {
 };
 export const logout = async () => {
   try {
-    await axios.delete("/auth/logout");
+    await axios.delete("/auth/logout", {
+      withCredentials: true,
+    });
     return { success: true };
   } catch (error) {
     console.log(error);
