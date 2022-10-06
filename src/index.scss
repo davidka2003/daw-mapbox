@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+@import url("https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css");
+body {
+  background-color: #1c1c1c;
+  margin: 0;
+  font-family: "Oswald", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+div.mapboxgl-popup-tip {
+  display: none;
+}
+div.mapboxgl-popup-content {
+  background: none;
+  height: 100%;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: white;
+}

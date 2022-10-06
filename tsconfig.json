@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    // "declaration": true,
+    "esModuleInterop": true,
+    "strict": true,
+    // "target": "es5",
+    "module": "commonjs",
+    "outDir": "dist",
+    "declaration": false,
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@hooks/*":["hooks/*"],
+      "@shared/*":["shared/*"],
+      "@store/*":["store/*"],
+      "@api/*":["api/*"],
+      "@components/*":["src/components/*"],
+      "@utils/*":["utils/*"],
+      "types":["types"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": ["src","api","hooks","shared","store","api","utils","types","templates"]
+}
