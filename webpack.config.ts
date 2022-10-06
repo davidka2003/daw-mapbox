@@ -25,14 +25,14 @@ const getConfig = (mode: "development" | "production") => {
             loader: "babel-loader",
             options: {
               presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
-              plugins: ["react-refresh/babel"],
+              plugins: [mode === "development" && "react-refresh/babel"].filter(Boolean),
             },
           },
         },
         {
           test: /\.ts$/,
           include: [path.resolve(__dirname /* "src" */)],
-          exclude: [path.resolve(__dirname, "node_modules"), /webpack.config.ts$/],
+          exclude: [path.resolve(__dirname, "node_modules"), /webpack.config.ts$/, /node_moules/],
           loader: "ts-loader",
         },
 
@@ -114,7 +114,7 @@ const getConfig = (mode: "development" | "production") => {
     devServer: {
       port: 3001,
       open: true,
-      hot: true,
+      hot: mode === "development",
       // compress: true,
       historyApiFallback: true,
     },
@@ -144,9 +144,11 @@ const getConfig = (mode: "development" | "production") => {
 };
 module.exports = (env: any, argv: any) => {
   if (argv.mode === "development" || env.NODE_ENV === "development") {
+    console.log("development");
     return getConfig("development");
   }
   if (argv.mode === "production" || env.NODE_ENV === "production") {
+    console.log("production");
     return getConfig("production");
   }
   return getConfig("production");
