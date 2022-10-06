@@ -15,15 +15,19 @@ interface MembersMapProps {}
 const MembersMap = ({}: MembersMapProps) => {
   const dispatch = useAppDispatch();
   const { user, authorized } = useAppSelector((state) => state.user);
+  const { isModalActive } = useAppSelector((state) => state.map);
   useEffect(() => {
     dispatch(GetUsers());
   }, []);
   const { users, current } = useAppSelector((state) => state.users);
   const { locate, initUser, flyOut, flyTo, mapRef } = useMap();
   const MapClickHandler = async ({ lngLat }: { lngLat: mapboxgl.LngLat }) => {
-    dispatch(CloseUserModal());
-    console.log("map clicked");
-    UpdateLocationHandler(lngLat);
+    if (isModalActive) {
+      dispatch(CloseUserModal());
+    } else {
+      console.log("map clicked");
+      UpdateLocationHandler(lngLat);
+    }
   };
   const UpdateLocationHandler = ({ lng, lat }: LocationT) => {
     if (!user.value) return;
