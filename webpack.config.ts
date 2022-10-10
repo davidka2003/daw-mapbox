@@ -7,6 +7,7 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 const getConfig = (mode: "development" | "production") => {
   return {
+    target: "node",
     entry: {
       bundle: path.resolve(__dirname, "src/index.tsx"),
     },
