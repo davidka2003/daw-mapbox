@@ -9,6 +9,9 @@ import { store } from "@store/store";
 import MapProvider from "@hooks/map/MapProvider";
 import DimensionsProvider from "@hooks/other/dimensions";
 const root = ReactDOM.createRoot(document.getElementById("root")!);
+import { faUser, faClose, faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+library.add(faUser, faClose, faSave, faTrashCan);
 root.render(
   <Router>
     <DimensionsProvider>
