@@ -26,7 +26,7 @@ const StyledFindMe = styled(motion.img)`
   height: 22px;
 `;
 interface EditorProps {}
-
+const Icon = motion(FontAwesomeIcon);
 const Editor = ({}: EditorProps) => {
   const { editor, user } = useAppSelector((state) => state);
   const { isMobile } = useDimensions();
@@ -63,7 +63,7 @@ const Editor = ({}: EditorProps) => {
       <>
         {!editor.isOpen &&
           (isMobile ? (
-            <FontAwesomeIcon icon={faUser} />
+            <Icon icon={faUser} onClick={OpenEditorHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} />
           ) : (
             <StyledEdittorButton onClick={OpenEditorHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               profile
@@ -76,14 +76,19 @@ const Editor = ({}: EditorProps) => {
               <img src={findme} alt="" />
             </StyledEdittorButton>
             {isMobile ? (
-              <FontAwesomeIcon icon={faClose} />
+              <Icon onClick={Reset} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} icon={faClose} />
             ) : (
               <StyledEdittorButton onClick={Reset} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                 close
               </StyledEdittorButton>
             )}
             {isMobile ? (
-              <FontAwesomeIcon icon={faSave} />
+              <Icon
+                onClick={CloseAndSaveEditorHandler}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                icon={faSave}
+              />
             ) : (
               <StyledEdittorButton
                 onClick={CloseAndSaveEditorHandler}
@@ -94,7 +99,7 @@ const Editor = ({}: EditorProps) => {
               </StyledEdittorButton>
             )}
             {isMobile ? (
-              <FontAwesomeIcon icon={faTrashCan} />
+              <Icon onClick={DeleteHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} icon={faTrashCan} />
             ) : (
               <StyledEdittorButton onClick={DeleteHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                 delete profile
