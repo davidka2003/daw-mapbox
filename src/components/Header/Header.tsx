@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useConnectWallet } from "@hooks/WalletProvider/useConnectWallet";
@@ -12,6 +12,8 @@ import { useSigner } from "@hooks/WalletProvider/useSigner";
 import { Editor } from "@components/Editor";
 import { isMobile } from "web3modal";
 import { useDimensions } from "@hooks/other/dimensions";
+import { toast } from "react-toastify";
+import { useNavigate, useSearchParams } from "react-router-dom";
 const StyledHeader = styled.header`
   position: absolute;
   left: 0;
@@ -29,7 +31,7 @@ const StyledHeader = styled.header`
   font-size: 20px;
   color: white;
   text-decoration: none;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 110%;
   text-align: center;
   @media only screen and (max-width: 768px) {
@@ -46,12 +48,13 @@ const StyledWalletConnect = styled(motion.button)`
   padding: 8px 12px;
   border-radius: 18px;
   font-family: "Oswald";
+  font-weight: inherit;
   line-height: 110%;
   font-size: 20px;
   text-align: center;
   min-width: 100px;
   @media only screen and (max-width: 768px) {
-    flex: 0 1;
+    flex: 1 0;
   }
 `;
 const StyledWalletAddress = styled.p``;
@@ -83,6 +86,18 @@ const Header = ({}: HeaderProps) => {
     }
     return () => dispatch(Logout());
   }, [connected, authorized]);
+  const [params] = useSearchParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log(params.get("success"));
+    if (params.get("success") === "true") {
+      toast.success("Twitter successfully connected", { delay: 100, autoClose: 1500 });
+    }
+    if (params.get("success") === "false") {
+      toast.error("Failed to connect twitter", { delay: 100, autoClose: 1500 });
+    }
+    setTimeout(() => navigate("/"));
+  }, []);
   return (
     <StyledHeader>
       <StyledWalletConnect onClick={connectButtonHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>

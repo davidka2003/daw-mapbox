@@ -1,6 +1,7 @@
 import { useDimensions } from "@hooks/other/dimensions";
 import { useAppDispatch, useAppSelector } from "@hooks/redux/redux";
 import { UpdateUserInfo } from "@store/user/user.reducer";
+import axios from "@utils/configs/axios";
 import { formatWalletAddress } from "@utils/other/formatWalletAddress";
 import { type OwnedNft } from "alchemy-sdk";
 import { motion } from "framer-motion";
@@ -8,6 +9,7 @@ import React, { ChangeEvent, useMemo } from "react";
 import { Popup } from "react-map-gl";
 import styled from "styled-components";
 import more from "./assets/more.svg";
+import twitter from "./assets/twitter.svg";
 const StyledCard = styled(Popup)`
   margin-top: 10px; //50% of marker
   background-color: #0000002f;
@@ -30,6 +32,8 @@ const StyledNftsContainer = styled.div`
 const StyledUserInfo = styled.div`
   padding: 20px 0;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   @media only screen and (max-width: 768px) {
     padding: 10px 0;
     font-size: 30px;
@@ -96,6 +100,18 @@ const StyledMore = styled(motion.div)`
   cursor: pointer;
   scale: 0.5;
 `;
+const StyledTwitterLink = styled(motion.a)`
+  padding-right: 10px;
+  display: block;
+  margin: 0;
+  width: fit-content;
+  height: fit-content;
+  img {
+    object-fit: contain;
+    width: 84px;
+    height: 84px;
+  }
+`;
 interface CardProps {
   longitude: number;
   latitude: number;
@@ -116,7 +132,6 @@ const Card = ({ longitude, latitude }: CardProps) => {
     return current.value.user.id === user.user.value.id;
   }, [current.value?.user?.id]);
   const isEditable = useMemo(() => isOwner && editor.isOpen, [isOwner, editor.isOpen]);
-  console.log(current.value, longitude, latitude);
   const MAX_NFTS = useMemo(() => (isMobile ? 4 : 10) - 1, [isMobile]);
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(!user.user.value, !isEditable);
@@ -134,6 +149,7 @@ const Card = ({ longitude, latitude }: CardProps) => {
     }
     window.open(`https://opensea.io/${current.value.user.wallet}/desperate-ape-wives`);
   };
+  console.log(current.value?.user);
   return (
     <StyledCard
       maxWidth={"none"}
@@ -185,6 +201,27 @@ const Card = ({ longitude, latitude }: CardProps) => {
               <StyledUserName>
                 {current.value.user.name ?? formatWalletAddress(current.value.user.wallet)}
               </StyledUserName>
+            ))}
+          {current.value?.user &&
+            (isEditable ? (
+              <StyledTwitterLink
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href={`${axios.defaults.baseURL}auth/connect_twitter`}
+              >
+                <img src={twitter} alt="Change twitter account" />
+              </StyledTwitterLink>
+            ) : (
+              current.value.user.twitter && (
+                <StyledTwitterLink
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  href={current.value.user.twitter}
+                  target={"_blank"}
+                >
+                  <img src={twitter} alt="" />
+                </StyledTwitterLink>
+              )
             ))}
         </StyledUserInfo>
       </StyledContentContainer>
