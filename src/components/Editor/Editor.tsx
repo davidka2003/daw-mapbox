@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import findme from "./assets/findme.svg";
 import React from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faClose, faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 // const StyledEditor = styled(React.Fragment)``;
 const StyledEdittorButton = styled(motion.p)`
   cursor: pointer;
@@ -59,30 +61,45 @@ const Editor = ({}: EditorProps) => {
   if (user.authorized) {
     return (
       <>
-        {!editor.isOpen && (
-          <StyledEdittorButton onClick={OpenEditorHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            profile
-          </StyledEdittorButton>
-        )}
+        {!editor.isOpen &&
+          (isMobile ? (
+            <FontAwesomeIcon icon={faUser} />
+          ) : (
+            <StyledEdittorButton onClick={OpenEditorHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              profile
+            </StyledEdittorButton>
+          ))}
         {editor.isOpen && (
           <>
             <StyledEdittorButton onClick={FindMe} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               {/* FIND ME */}
               <img src={findme} alt="" />
             </StyledEdittorButton>
-            <StyledEdittorButton onClick={Reset} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              close
-            </StyledEdittorButton>
-            <StyledEdittorButton
-              onClick={CloseAndSaveEditorHandler}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              save
-            </StyledEdittorButton>
-            <StyledEdittorButton onClick={DeleteHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              delete profile
-            </StyledEdittorButton>
+            {isMobile ? (
+              <FontAwesomeIcon icon={faClose} />
+            ) : (
+              <StyledEdittorButton onClick={Reset} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                close
+              </StyledEdittorButton>
+            )}
+            {isMobile ? (
+              <FontAwesomeIcon icon={faSave} />
+            ) : (
+              <StyledEdittorButton
+                onClick={CloseAndSaveEditorHandler}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                save
+              </StyledEdittorButton>
+            )}
+            {isMobile ? (
+              <FontAwesomeIcon icon={faTrashCan} />
+            ) : (
+              <StyledEdittorButton onClick={DeleteHandler} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                delete profile
+              </StyledEdittorButton>
+            )}
           </>
         )}
       </>

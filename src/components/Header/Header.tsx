@@ -14,6 +14,7 @@ import { isMobile } from "web3modal";
 import { useDimensions } from "@hooks/other/dimensions";
 import { toast } from "react-toastify";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import logo from "./assets/logo.png";
 const StyledHeader = styled.header`
   position: absolute;
   left: 0;
@@ -55,6 +56,23 @@ const StyledWalletConnect = styled(motion.button)`
   min-width: 100px;
   @media only screen and (max-width: 768px) {
     flex: 1 0;
+    min-width: 60px;
+  }
+`;
+const StyledLogo = styled(motion.a)`
+  text-align: center;
+  margin-right: auto;
+  cursor: pointer;
+  img {
+    display: block;
+    width: auto;
+    height: 60px;
+  }
+  @media only screen and (max-width: 768px) {
+    margin-right: initial;
+    img {
+      height: 30px;
+    }
   }
 `;
 const StyledWalletAddress = styled.p``;
@@ -104,7 +122,17 @@ const Header = ({}: HeaderProps) => {
         {ConnectButtonText}
       </StyledWalletConnect>
       {address && <StyledWalletAddress>{formatWalletAddress(address)}</StyledWalletAddress>}
+      {isMobile && (
+        <StyledLogo whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <img src={logo} alt="" />
+        </StyledLogo>
+      )}
       <Editor />
+      {!isMobile && (
+        <StyledLogo whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <img src={logo} alt="" />
+        </StyledLogo>
+      )}
     </StyledHeader>
   );
 };
