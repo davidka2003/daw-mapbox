@@ -71,10 +71,11 @@ const Editor = ({}: EditorProps) => {
           ))}
         {editor.isOpen && (
           <>
-            <StyledEdittorButton onClick={FindMe} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              {/* FIND ME */}
-              <img src={findme} alt="" />
-            </StyledEdittorButton>
+            {isMobile && (
+              <StyledEdittorButton onClick={FindMe} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                <img src={findme} alt="" />
+              </StyledEdittorButton>
+            )}
             {isMobile ? (
               <Icon onClick={Reset} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} icon={faClose} />
             ) : (
@@ -96,6 +97,11 @@ const Editor = ({}: EditorProps) => {
                 whileTap={{ scale: 0.9 }}
               >
                 save
+              </StyledEdittorButton>
+            )}
+            {!isMobile && (
+              <StyledEdittorButton onClick={FindMe} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                my location
               </StyledEdittorButton>
             )}
             {isMobile ? (

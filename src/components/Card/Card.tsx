@@ -16,6 +16,10 @@ const StyledCard = styled(Popup)`
   position: relative;
   width: 700px;
   min-height: 100px;
+  > div {
+    width: 100%;
+    padding: 10px;
+  }
   @media only screen and (max-width: 768px) {
     width: 280px;
   }
@@ -30,12 +34,12 @@ const StyledNftsContainer = styled.div`
   gap: 20px;
 `;
 const StyledUserInfo = styled.div`
-  padding: 20px 0;
+  padding: 10px 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   @media only screen and (max-width: 768px) {
-    padding: 10px 0;
+    /* padding: 10px 0; */
     font-size: 30px;
     line-height: 110%;
   }
@@ -70,25 +74,28 @@ const StyledNftCard = styled(motion.div)`
 const StyledUserNameInput = styled(motion.input)`
   background-color: #0000002f;
   border: none;
-  padding: 20px 10px;
-  font-size: 40px;
+  padding: 5px 10px;
+  font-size: 30px;
   line-height: 110%;
   color: white;
+  font-family: "Oswald";
   outline: none;
   @media only screen and (max-width: 768px) {
-    padding: 10px 10px;
-    padding: 10px 10px;
+    padding: 5px 10px;
+    /* padding: 10px 10px; */
     max-width: 50%;
-    font-size: 30px;
+    font-size: 20px;
   }
 `;
 const StyledUserName = styled(motion.p)`
-  padding: 20px 0;
+  padding: 5px 0;
   height: fit-content;
   line-height: 110%;
+  font-size: 30px;
+
   @media only screen and (max-width: 768px) {
-    padding: 10px 0;
-    font-size: 30px;
+    /* padding: 10px 0; */
+    /* font-size: 30px; */
   }
 `;
 const StyledMore = styled(motion.div)`
@@ -101,15 +108,15 @@ const StyledMore = styled(motion.div)`
   scale: 0.5;
 `;
 const StyledTwitterLink = styled(motion.a)`
-  padding-right: 10px;
+  /* padding-right: 10px; */
   display: block;
   margin: 0;
   width: fit-content;
   height: fit-content;
   img {
     object-fit: contain;
-    width: 84px;
-    height: 84px;
+    width: 43px;
+    height: 43px;
   }
 `;
 interface CardProps {

@@ -62,7 +62,9 @@ const WalletProvider = ({ children }: { children: JSX.Element }) => {
     };
     connected && instance && init();
   }, [connected]);
-
+  useEffect(() => {
+    localStorage.removeItem("WEB3_CONNECT_CACHED_PROVIDER");
+  }, []);
   return (
     <WalletContext.Provider
       value={{

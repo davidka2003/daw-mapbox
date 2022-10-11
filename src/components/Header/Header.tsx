@@ -21,13 +21,14 @@ const StyledHeader = styled.header`
   top: 0;
   width: 100%;
   z-index: 1;
-  height: fit-content;
+  height: 60px;
+  /* height: fit-content; */
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: flex-start;
   background-color: rgba(0, 0, 0, 0.3);
-  padding: 20px 40px;
+  padding: 10px 40px;
   gap: 30px;
   font-size: 20px;
   color: white;
@@ -39,6 +40,7 @@ const StyledHeader = styled.header`
     justify-content: center;
     flex-wrap: wrap;
     max-height: 130px;
+    height: fit-content;
   }
 `;
 const StyledWalletConnect = styled(motion.button)`
@@ -63,10 +65,12 @@ const StyledLogo = styled(motion.a)`
   text-align: center;
   margin-right: auto;
   cursor: pointer;
+  height: 100%;
+  display: flex;
   img {
+    height: 100%;
+    align-self: center;
     display: block;
-    width: auto;
-    height: 60px;
   }
   @media only screen and (max-width: 768px) {
     margin-right: initial;
