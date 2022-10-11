@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@hooks/redux/redux";
-import { Login } from "@store/user/user.reducer";
+import { Login, Logout } from "@store/user/user.reducer";
 import { web3Modal } from "@utils/configs/provider";
 import { useContext, useEffect } from "react";
 
@@ -34,5 +34,15 @@ export const useConnectWallet = () => {
       console.error(error);
     }
   };
-  return { connect };
+  const disconnect = async () => {
+    console.log("disconnect");
+    await web3Modal.clearCachedProvider();
+    setAddress(null);
+    setSigner(null);
+    setProvider(null);
+    setInstance(null);
+    setConnected(false);
+    dispatch(Logout());
+  };
+  return { connect, disconnect };
 };

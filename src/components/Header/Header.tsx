@@ -84,7 +84,7 @@ interface HeaderProps {}
 
 const Header = ({}: HeaderProps) => {
   const { isMobile } = useDimensions();
-  const { connect } = useConnectWallet();
+  const { connect, disconnect } = useConnectWallet();
   const { user, authorized } = useAppSelector((state) => state.user);
   const { connected } = isConnected();
   const signer = useSigner();
@@ -106,7 +106,10 @@ const Header = ({}: HeaderProps) => {
     if (connected && !authorized && signer) {
       return () => dispatch(Login({ signer }));
     }
-    return () => dispatch(Logout());
+    return disconnect; /*  () => {
+      // setInstance && setInstance(undefined);
+      // dispatch(Logout());
+    }; */
   }, [connected, authorized]);
   const [params] = useSearchParams();
   const navigate = useNavigate();
