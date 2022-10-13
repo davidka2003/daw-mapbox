@@ -206,7 +206,11 @@ const Card = ({ longitude, latitude }: CardProps) => {
             ) : (
               /** @todo instead of wallet, put username and make username = wallet on backend */
               <StyledUserName>
-                {current.value.user.name ?? formatWalletAddress(current.value.user.wallet)}
+                {current.value.user.name
+                  ? current.value.user.name
+                  : current.value.user.twitter
+                  ? current.value.user.twitter.replace("https://twitter.com/", "")
+                  : formatWalletAddress(current.value.user.wallet)}
               </StyledUserName>
             ))}
           {current.value?.user &&

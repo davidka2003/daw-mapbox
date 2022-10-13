@@ -34,14 +34,14 @@ const MapMarker = ({ user }: MarkerProps) => {
   const OpenMarkerHandler = (e: mapboxgl.MapboxEvent<MouseEvent>) => {
     if (!mapState.isModalActive) {
       e.originalEvent.stopPropagation();
-      flyTo(user.location);
+      // flyTo(user.location);
       setCurrentActive(true);
       dispacth(OpenUserModal({ wallet: user.wallet }));
     }
   };
   useEffect(() => {
     if (!mapState.isModalActive && currentActive) {
-      flyOut();
+      // flyOut();
       setCurrentActive(false);
     }
   }, [mapState.isModalActive]);
