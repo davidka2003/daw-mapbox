@@ -5,6 +5,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@store/store";
 import { Logout, UpdateUserInfo } from "@store/user/user.reducer";
 import { GetUserByWallet, GetUsers, ResetCurrent, UpdateCurrent } from "@store/users/users.reducer";
+import axios from "@utils/configs/axios";
 import { LocationT, UserI, UserWithLocationI } from "types/user";
 
 interface InitialStateI {
@@ -25,7 +26,17 @@ export const OpenEditor = createAsyncThunk("editor/openEditor", (_, thunkApi) =>
   }
   return user.user.value;
 });
-
+export const ChangeTwitter = createAsyncThunk("editor/changeTwitter", async (_, thunkApi) => {
+  const {
+    editor,
+    user: { user },
+  } = thunkApi.getState() as RootState;
+  if (user.value) {
+    await updateUser(user.value);
+  }
+  return `${axios.defaults.baseURL}auth/connect_twitter`;
+  return (window.location.href = `${axios.defaults.baseURL}auth/connect_twitter`);
+});
 export const SaveUserInfo = createAsyncThunk("editor/updateuserinfo", async (_, thunkApi) => {
   // api update user info
   const {

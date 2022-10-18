@@ -1,5 +1,6 @@
 import { useDimensions } from "@hooks/other/dimensions";
 import { useAppDispatch, useAppSelector } from "@hooks/redux/redux";
+import { ChangeTwitter } from "@store/editor/editor.reducer";
 import { UpdateUserInfo } from "@store/user/user.reducer";
 import axios from "@utils/configs/axios";
 import { formatWalletAddress } from "@utils/other/formatWalletAddress";
@@ -156,7 +157,13 @@ const Card = ({ longitude, latitude }: CardProps) => {
     }
     window.open(`https://opensea.io/${current.value.user.wallet}/desperate-ape-wives`);
   };
-  console.log(current.value?.user);
+  const changeTwitter = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    const res = await dispatch(ChangeTwitter());
+    if (res.meta.requestStatus == "fulfilled") {
+      return (document.location.href = res.payload as string);
+    }
+  };
   return (
     <StyledCard
       maxWidth={"none"}
@@ -218,6 +225,7 @@ const Card = ({ longitude, latitude }: CardProps) => {
               <StyledTwitterLink
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={changeTwitter}
                 href={`${axios.defaults.baseURL}auth/connect_twitter`}
               >
                 <img src={twitter} alt="Change twitter account" />
